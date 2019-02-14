@@ -1,0 +1,57 @@
+<html lang="ru-RU">
+<head>
+	<meta http-equiv="content-type" content="text/html; charset=UTF-8">
+	<title>Русский алфавит. Раскраска</title>
+	<meta name="description" content="Пример выполнения вывода русского алфавита средствами js (jquery) по 5 букв в ряд адаптивно для различных устройств"/>
+	<meta name="keywords" content="russian, alphabet, coloring book, adaptive, responsive, HTML, CSS, JS, JQuery">
+	<meta http-equiv="content-type" content="text/html; charset=UTF-8">
+	<meta name="viewport" content="width=device-width">
+	<script type="text/javascript" src="https://code.jquery.com/jquery-latest.js"></script>
+
+	<style id="compiled-css" type="text/css">
+		body {
+			font-size: 10vw;
+			font-family: cursive;
+			color: transparent;
+			-webkit-text-stroke: 1px black; }
+		content {
+			display: flex;
+			flex-wrap: wrap;
+			justify-content: center;
+			justify-items: center; }
+		content div {
+			width: 19vw;
+			height: 19vw;
+			display: flex;
+			align-items: center;
+			justify-content: center; }
+
+	</style>
+
+</head>
+<body>
+<content></content>
+<script type="text/javascript">
+	(function($){
+
+		//https://stackoverflow.com/questions/24597634/how-to-generate-an-array-of-alphabet-in-jquery
+
+		function genCharArray(charA, charZ){
+			var a = [], i = charA.charCodeAt(0), j = charZ.charCodeAt(0);
+			for (; i <= j; ++i) {
+				var c = String.fromCharCode(i);
+				a.push(c.toUpperCase() + c.toLowerCase());
+			}
+			return a;
+		}
+
+		var ab = genCharArray('А', 'Я'); // ["a", ..., "z"]
+		$("content").html("<div>" + ab.join("</div><div>") + "</div>").find("div").filter(function(){
+			return /е/i.test($(this).text());
+		}).after("<div>Ёё</div>");
+
+	})(jQuery);
+
+</script>
+</body>
+</html>
